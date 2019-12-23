@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.CardMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.Card">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="cause" jdbcType="VARCHAR" property="cause"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="is_del" jdbcType="BIT" property="isDel"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, base_id, type, start_time, end_time, create_time, update_time, is_del, version
+  </sql>
+    <select id="countCardByBaseId" resultType="java.lang.Integer">
+      select count(*) from card where base_id = #{baseId,jdbcType=INTEGER}
+    </select>
+</mapper>

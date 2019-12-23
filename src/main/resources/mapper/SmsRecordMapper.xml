@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.SmsRecordMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.SmsRecord">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="wechat_id" jdbcType="VARCHAR" property="wechatId"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
+        <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, wechat_id, phone, code, send_time, expire_time
+  </sql>
+    <select id="selectByPhoneAndWechatId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sms_record
+        where wechat_id = #{wechatId,jdbcType=VARCHAR}
+        and
+        phone = #{phone,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByOvertime" parameterType="java.util.Date">
+        delete from sms_record
+        where expire_time &lt; #{now,jdbcType=TIMESTAMP}
+    </delete>
+    <delete id="deleteByPhoneAndWechatId" parameterType="java.lang.String">
+        delete
+        from sms_record
+        where wechat_id = #{wechatId,jdbcType=VARCHAR}
+        and
+        phone = #{phone,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

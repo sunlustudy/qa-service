@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.ReportListMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.ReportList">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="work_years" jdbcType="VARCHAR" property="workYears"/>
+        <result column="education" jdbcType="VARCHAR" property="education"/>
+        <result column="expect_post" jdbcType="VARCHAR" property="expectPost"/>
+        <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="fit_degree" jdbcType="VARCHAR" property="fitDegree"/>
+        <result column="demand_id" jdbcType="INTEGER" property="demandId"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <resultMap id="ReportListDTO" type="io.choerodon.api.dto.ReportListDTO">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="work_years" jdbcType="VARCHAR" property="workYears"/>
+        <result column="education" jdbcType="VARCHAR" property="education"/>
+        <result column="expect_post" jdbcType="VARCHAR" property="expectPost"/>
+        <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime"/>
+        <result column="fit_degree" jdbcType="VARCHAR" property="fitDegree"/>
+        <result column="demand_id" jdbcType="INTEGER" property="demandId"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="recommend_count" javaType="INTEGER" property="recommendCount"/>
+    </resultMap>
+
+
+    <select id="selectByParams" resultMap="BaseResultMap">
+        select * from report_list
+        <where>
+            <if test="demandIds!=null">
+                demand_id in
+                <foreach collection="demandIds" item="demandId" separator="," open="(" close=")" index="item">
+                    #{demandId}
+                </foreach>
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like concat('%',#{phone,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="startTime!=null">
+                and delivery_time > #{startTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime!=null">
+                and #{endTime,jdbcType=TIMESTAMP} > delivery_time
+            </if>
+            <if test="status!=null">
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByDemand" resultMap="ReportListDTO">
+        select rl.*, pr.recommend_count as recommend_count
+        from report_list rl
+        right join personal_report pr on rl.base_id = pr.base_id where rl.id is not null
+        and rl.demand_id = #{demandId,jdbcType=INTEGER}
+        <if test="phone!=null and phone!=''">
+            and rl.phone like concat('%',#{phone,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="name!=null and name!=''">
+            and rl.name like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+
+    <select id="selectByParamsAdminAll" resultMap="ReportListDTO">
+        select rl.*, pr.recommend_count as recommend_count
+        from report_list rl
+        right join personal_report pr on rl.base_id = pr.base_id where rl.id is not null
+        <if test="phone!=null and phone!=''">
+            and rl.phone like concat('%',#{phone,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="name!=null and name!=''">
+            and rl.name like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="status!=null">
+            and rl.status = #{status,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

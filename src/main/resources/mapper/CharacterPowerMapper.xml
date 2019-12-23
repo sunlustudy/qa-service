@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.CharacterPowerMapper">
+  <resultMap id="BaseResultMap" type="io.choerodon.domain.CharacterPower">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="base_id" jdbcType="INTEGER" property="baseId" />
+    <result column="character1" jdbcType="VARCHAR" property="character1" />
+    <result column="character2" jdbcType="VARCHAR" property="character2" />
+    <result column="character3" jdbcType="VARCHAR" property="character3" />
+    <result column="character4" jdbcType="VARCHAR" property="character4" />
+    <result column="character5" jdbcType="VARCHAR" property="character5" />
+    <result column="character6" jdbcType="VARCHAR" property="character6" />
+    <result column="character7" jdbcType="VARCHAR" property="character7" />
+    <result column="character8" jdbcType="VARCHAR" property="character8" />
+    <result column="character9" jdbcType="VARCHAR" property="character9" />
+    <result column="character10" jdbcType="VARCHAR" property="character10" />
+    <result column="character11" jdbcType="VARCHAR" property="character11" />
+    <result column="character12" jdbcType="VARCHAR" property="character12" />
+    <result column="character13" jdbcType="VARCHAR" property="character13" />
+    <result column="character14" jdbcType="VARCHAR" property="character14" />
+    <result column="character15" jdbcType="VARCHAR" property="character15" />
+    <result column="character16" jdbcType="VARCHAR" property="character16" />
+    <result column="character17" jdbcType="VARCHAR" property="character17" />
+    <result column="character18" jdbcType="VARCHAR" property="character18" />
+    <result column="character19" jdbcType="VARCHAR" property="character19" />
+    <result column="character20" jdbcType="VARCHAR" property="character20" />
+    <result column="character21" jdbcType="VARCHAR" property="character21" />
+    <result column="character22" jdbcType="VARCHAR" property="character22" />
+    <result column="character23" jdbcType="VARCHAR" property="character23" />
+    <result column="driving_factors" jdbcType="VARCHAR" property="drivingFactors" />
+  </resultMap>
+
+
+  <resultMap id="CharacterTemp" type="io.choerodon.domain.CharacterTemp">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="base_id" jdbcType="INTEGER" property="baseId" />
+    <result column="character1" jdbcType="VARCHAR" property="character1" />
+    <result column="character2" jdbcType="VARCHAR" property="character2" />
+    <result column="character3" jdbcType="VARCHAR" property="character3" />
+    <result column="character4" jdbcType="VARCHAR" property="character4" />
+    <result column="character5" jdbcType="VARCHAR" property="character5" />
+    <result column="character6" jdbcType="VARCHAR" property="character6" />
+    <result column="character7" jdbcType="VARCHAR" property="character7" />
+    <result column="character8" jdbcType="VARCHAR" property="character8" />
+    <result column="character9" jdbcType="VARCHAR" property="character9" />
+    <result column="character10" jdbcType="VARCHAR" property="character10" />
+    <result column="character11" jdbcType="VARCHAR" property="character11" />
+    <result column="character12" jdbcType="VARCHAR" property="character12" />
+    <result column="character13" jdbcType="VARCHAR" property="character13" />
+    <result column="character14" jdbcType="VARCHAR" property="character14" />
+    <result column="character15" jdbcType="VARCHAR" property="character15" />
+    <result column="character16" jdbcType="VARCHAR" property="character16" />
+    <result column="character17" jdbcType="VARCHAR" property="character17" />
+    <result column="character18" jdbcType="VARCHAR" property="character18" />
+    <result column="character19" jdbcType="VARCHAR" property="character19" />
+    <result column="character20" jdbcType="VARCHAR" property="character20" />
+    <result column="character21" jdbcType="VARCHAR" property="character21" />
+    <result column="character22" jdbcType="VARCHAR" property="character22" />
+    <result column="character23" jdbcType="VARCHAR" property="character23" />
+    <result column="driving_factors" jdbcType="VARCHAR" property="drivingFactors" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    id, base_id, character1, character2, character3, character4, character5, character6, 
+    character7, character8, character9, character10, character11, character12, character13, 
+    character14, character15, character16, character17, character18, character19, character20, 
+    character21, character22, character23, driving_factors
+  </sql>
+
+  <select id="seleteByBaseIdTemp" resultMap="CharacterTemp">
+    select * from character_power
+    where base_id = #{baseId,jdbcType=INTEGER}
+  </select>
+
+
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.AnswerBankBaseMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.AnswerBankBase">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="wechat_id" jdbcType="VARCHAR" property="wechatId"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="marry_status" jdbcType="VARCHAR" property="marryStatus"/>
+        <result column="habitation" jdbcType="VARCHAR" property="habitation"/>
+        <result column="work_place" jdbcType="VARCHAR" property="workPlace"/>
+        <result column="education" jdbcType="VARCHAR" property="education"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="professional_name" jdbcType="VARCHAR" property="professionalName"/>
+        <result column="academy" jdbcType="VARCHAR" property="academy"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="english_name" jdbcType="VARCHAR" property="englishName"/>
+        <result column="inviter_id" jdbcType="INTEGER" property="inviterId"/>
+    </resultMap>
+
+    <resultMap id="AnswerBankBaseDTO" type="io.choerodon.api.dto.AnswerBankBaseDTO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="wechat_id" jdbcType="VARCHAR" property="wechatId"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="marry_status" jdbcType="VARCHAR" property="marryStatus"/>
+        <result column="habitation" jdbcType="VARCHAR" property="habitation"/>
+        <result column="work_place" jdbcType="VARCHAR" property="workPlace"/>
+        <result column="education" jdbcType="VARCHAR" property="education"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="professional_name" jdbcType="VARCHAR" property="professionalName"/>
+        <result column="academy" jdbcType="VARCHAR" property="academy"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="english_name" jdbcType="VARCHAR" property="englishName"/>
+        <result column="inviter_id" jdbcType="INTEGER" property="inviterId"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, wechat_id, created_time, name, gender, marry_status, habitation, work_place, 
+    education, subject, professional_name, academy,status,birthday,nickname,english_name, inviter_id
+  </sql>
+
+    <sql id="Answer_Base">
+    id, wechat_id, created_time, name, gender, marry_status, habitation, work_place,
+    education, subject, professional_name, academy,status,birthday,nickname,english_name, inviter_id,phone
+  </sql>
+
+
+    <select id="selectByWechatId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from answer_bank_base
+        where wechat_id = #{wechatId}
+    </select>
+
+    <select id="selectByInviterId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from answer_bank_base abb
+        where exists(
+        select i.id from invitation i
+        where i.invited_id = abb.id
+        and i.inviter_id = #{baseId,jdbcType=INTEGER})
+    </select>
+    <select id="selectIds" resultType="java.lang.Integer">
+        select id from answer_bank_base
+    </select>
+
+    <select id="selectByInviterIdAddPhone" resultMap="AnswerBankBaseDTO" parameterType="java.lang.Integer">
+        select abb.* ,br.phone from answer_bank_base abb,base_relation br
+        where exists(
+            select i.id
+            from invitation i
+            where i.invited_id = abb.id and abb.wechat_id = br.wechat_id
+            and i.inviter_id = #{baseId,jdbcType=INTEGER})
+    </select>
+
+
+    <select id="selectHasInviter" resultMap="AnswerBankBaseDTO">
+        select abb.* ,br.phone from answer_bank_base abb,base_relation br
+        where  abb.wechat_id = br.wechat_id order by created_time desc
+    </select>
+
+
+</mapper>

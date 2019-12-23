@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.WorkHistoryExtendMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.WorkHistoryExtend">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="year" jdbcType="VARCHAR" property="year"/>
+        <result column="sales_indicators" jdbcType="DECIMAL" property="salesIndicators"/>
+        <result column="completion" jdbcType="DECIMAL" property="completion"/>
+        <result column="industry" jdbcType="DECIMAL" property="industry"/>
+        <result column="products_services" jdbcType="DECIMAL" property="productsServices"/>
+
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, base_id, year, sales_indicators, completion,products_services
+  </sql>
+    <select id="selectByBaseIdLimit" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from work_history_extend where base_id =#{baseId,jdbcType=INTEGER}
+        and completion is not null
+        order by year desc limit 2
+    </select>
+
+</mapper>

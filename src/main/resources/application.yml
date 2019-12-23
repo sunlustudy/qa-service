@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: qa-service
+
+  jackson:
+    time-zone: GMT+8
+  profiles:
+    active: prod
+  redis:
+    password: yingzhuxinxi
+    host: 47.103.120.241
+    port: 6379
+
+ali:
+  access-key-id: LTAI70YMsgWhHtCy
+  access-key-secret: h0ly71Gc7zO61ImveQBm2i83VMlLtE
+  sms:
+    sign-name: TopsalesAI
+    template-code:
+      code: SMS_173230288
+      order: SMS_173945540
+      register: SMS_173190072
+      changePWD: SMS_173190071
+  oss:
+    bucketName: resources-certificate
+    endpoint: http://oss-cn-shanghai.aliyuncs.com
+management:
+  endpoint:
+    health:
+      show-details: always
+    threaddump:
+      enabled: true
+    loggers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - metrics
+          - loggers
+          - threaddump
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0

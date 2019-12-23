@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.CustomerResourcesMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.CustomerResources">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="customer" jdbcType="VARCHAR" property="customer"/>
+        <result column="organizational_code" jdbcType="VARCHAR" property="organizationalCode"/>
+        <result column="target" jdbcType="VARCHAR" property="target"/>
+        <result column="cycle" jdbcType="VARCHAR" property="cycle"/>
+        <result column="amount" jdbcType="VARCHAR" property="amount"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="income_scale" jdbcType="VARCHAR" property="incomeScale"/>
+        <result column="staff_size" jdbcType="VARCHAR" property="staffSize"/>
+        <result column="budget_year" jdbcType="VARCHAR" property="budgetYear"/>
+        <result column="enterprise_quality" jdbcType="VARCHAR" property="enterpriseQuality"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, base_id, customer, organizational_code, target, cycle, amount, sort, income_scale, 
+    staff_size, budget_year, enterprise_quality
+  </sql>
+
+    <insert id="insertSelective" parameterType="io.choerodon.domain.CustomerResources" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into customer_resources
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="baseId != null">
+                base_id,
+            </if>
+            <if test="customer != null">
+                customer,
+            </if>
+            <if test="organizationalCode != null">
+                organizational_code,
+            </if>
+            <if test="target != null">
+                target,
+            </if>
+            <if test="cycle != null">
+                cycle,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="incomeScale != null">
+                income_scale,
+            </if>
+            <if test="staffSize != null">
+                staff_size,
+            </if>
+            <if test="budgetYear != null">
+                budget_year,
+            </if>
+            <if test="enterpriseQuality != null">
+                enterprise_quality,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="baseId != null">
+                #{baseId,jdbcType=INTEGER},
+            </if>
+            <if test="customer != null">
+                #{customer,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationalCode != null">
+                #{organizationalCode,jdbcType=VARCHAR},
+            </if>
+            <if test="target != null">
+                #{target,jdbcType=VARCHAR},
+            </if>
+            <if test="cycle != null">
+                #{cycle,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="incomeScale != null">
+                #{incomeScale,jdbcType=VARCHAR},
+            </if>
+            <if test="staffSize != null">
+                #{staffSize,jdbcType=VARCHAR},
+            </if>
+            <if test="budgetYear != null">
+                #{budgetYear,jdbcType=VARCHAR},
+            </if>
+            <if test="enterpriseQuality != null">
+                #{enterpriseQuality,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

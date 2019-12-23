@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.JobInformationMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.JobInformation">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="expect_post" jdbcType="VARCHAR" property="expectPost"/>
+        <result column="industry" jdbcType="VARCHAR" property="industry"/>
+        <result column="organization_scale" jdbcType="VARCHAR" property="organizationScale"/>
+        <result column="enterprise_quality" jdbcType="VARCHAR" property="enterpriseQuality"/>
+        <result column="function_field" jdbcType="VARCHAR" property="functionField"/>
+        <result column="expect_salary" jdbcType="VARCHAR" property="expectSalary"/>
+        <result column="self_evaluation" jdbcType="VARCHAR" property="selfEvaluation"/>
+        <result column="work_place" jdbcType="VARCHAR" property="workPlace"/>
+
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, base_id, expect_post, industry, organization_scale, enterprise_quality, function_field, 
+    expect_salary, self_evaluation,work_place
+  </sql>
+
+</mapper>

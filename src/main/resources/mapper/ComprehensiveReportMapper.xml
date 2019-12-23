@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.ComprehensiveReportMapper">
+  <resultMap id="BaseResultMap" type="io.choerodon.domain.ComprehensiveReport">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="base_id" jdbcType="INTEGER" property="baseId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="educational" jdbcType="VARCHAR" property="educational" />
+    <result column="companys" jdbcType="VARCHAR" property="companys" />
+    <result column="skills" jdbcType="VARCHAR" property="skills" />
+    <result column="personality" jdbcType="VARCHAR" property="personality" />
+    <result column="advantage_abilitys" jdbcType="VARCHAR" property="advantageAbilitys" />
+    <result column="Inferiority_abilitys" jdbcType="VARCHAR" property="inferiorityAbilitys" />
+    <result column="driving_factors" jdbcType="VARCHAR" property="drivingFactors" />
+    <result column="recommended_composite_index" jdbcType="DECIMAL" property="recommendedCompositeIndex" />
+    <result column="index_level" jdbcType="VARCHAR" property="indexLevel" />
+    <result column="index_explain" jdbcType="VARCHAR" property="indexExplain" />
+    <result column="sales_capability_index" jdbcType="DECIMAL" property="salesCapabilityIndex" />
+    <result column="sales_capability_index1" jdbcType="DECIMAL" property="salesCapabilityIndex1" />
+    <result column="sales_capability_index2" jdbcType="DECIMAL" property="salesCapabilityIndex2" />
+    <result column="sales_capability_index3" jdbcType="DECIMAL" property="salesCapabilityIndex3" />
+    <result column="sales_capability_index4" jdbcType="DECIMAL" property="salesCapabilityIndex4" />
+    <result column="sales_capability_index5" jdbcType="DECIMAL" property="salesCapabilityIndex5" />
+    <result column="sales_capability_index6" jdbcType="DECIMAL" property="salesCapabilityIndex6" />
+    <result column="sales_capability_index7" jdbcType="DECIMAL" property="salesCapabilityIndex7" />
+    <result column="performance_capability_index" jdbcType="VARCHAR" property="performanceCapabilityIndex" />
+    <result column="historical_performance" jdbcType="VARCHAR" property="historicalPerformance" />
+    <result column="customer_index" jdbcType="DECIMAL" property="customerIndex" />
+    <result column="customer_resource_index" jdbcType="VARCHAR" property="customerResourceIndex" />
+    <result column="customer_relationship_confidence" jdbcType="DECIMAL" property="customerRelationshipConfidence" />
+    <result column="resource_energy_level_index" jdbcType="VARCHAR" property="resourceEnergyLevelIndex" />
+    <result column="relational_energy_index" jdbcType="DECIMAL" property="relationalEnergyIndex" />
+    <result column="working_stability" jdbcType="VARCHAR" property="workingStability" />
+  </resultMap>
+
+
+</mapper>

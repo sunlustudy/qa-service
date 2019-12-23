@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.DemandMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.Demand">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="post" jdbcType="VARCHAR" property="post"/>
+        <result column="post_description" jdbcType="VARCHAR" property="postDescription"/>
+        <result column="HR_name" jdbcType="VARCHAR" property="hrName"/>
+        <result column="contact" jdbcType="VARCHAR" property="contact"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="is_del" jdbcType="BIT" property="isDel"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="created_by" jdbcType="INTEGER" property="createdBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, company_name, post, post_description, HR_name, contact, create_time, update_time, 
+    is_del, version,created_by
+  </sql>
+    <select id="selectByParams" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from demand
+        where is_del = 0
+        <if test="companyName!=null and companyName!=''">
+            and company_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="post!=null and post!=''">
+            and post like concat('%',#{post,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="postDescription!=null and postDescription!=''">
+            and post_description like concat('%',#{postDescription,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+    <select id="selectByParamsAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from demand where created_by = #{userId,jdbcType=INTEGER}
+        <if test="companyName!=null and companyName!=''">
+            and company_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="post!=null and post!=''">
+            and post like concat('%',#{post,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="postDescription!=null and postDescription!=''">
+            and post_description like concat('%',#{postDescription,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="isDel!=null">
+            and is_del = #{isDel,jdbcType=BIT}
+        </if>
+    </select>
+
+    <select id="selectRecommended" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from demand d where exists( select demand_id from report_list rl
+        where d.id = rl.demand_id and base_id = #{baseId,jdbcType=INTEGER} )
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="io.choerodon.domain.Demand">
+        update demand
+        <set>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="post != null">
+                post = #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="postDescription != null">
+                post_description = #{postDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="hrName != null">
+                HR_name = #{hrName,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null">
+                contact = #{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=BIT},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=INTEGER} +1,
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+        and created_by = #{createdBy,jdbcType=INTEGER}
+        and version = #{version,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateStatus">
+        update demand
+        set  is_del = #{isDel,jdbcType=BIT}
+        where id = #{id,jdbcType=INTEGER}
+        and created_by = #{createdBy,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

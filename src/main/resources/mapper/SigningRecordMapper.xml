@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.SigningRecordMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.SigningRecord">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="sign_year" jdbcType="VARCHAR" property="signYear"/>
+        <result column="target" jdbcType="VARCHAR" property="target"/>
+        <result column="amount" jdbcType="VARCHAR" property="amount"/>
+        <result column="target_other" jdbcType="VARCHAR" property="targetOther"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, customer_id, sign_year, target, amount,target_other
+  </sql>
+    <delete id="deleteByCustomerId" parameterType="java.lang.Integer">
+        delete from signing_record
+        where customer_id = #{customerId,jdbcType=INTEGER}
+    </delete>
+    <select id="selectByCustomerId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from signing_record
+        where customer_id = #{customerId,jdbcType=INTEGER}
+        order by sign_year desc
+    </select>
+
+</mapper>

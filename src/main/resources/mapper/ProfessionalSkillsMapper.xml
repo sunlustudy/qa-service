@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.ProfessionalSkillsMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.ProfessionalSkills">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="knowledge" jdbcType="VARCHAR" property="knowledge"/>
+        <result column="skill" jdbcType="VARCHAR" property="skill"/>
+        <result column="basic_competence" jdbcType="VARCHAR" property="basicCompetence"/>
+        <result column="accomplishment" jdbcType="VARCHAR" property="accomplishment"/>
+        <result column="sales_return" jdbcType="VARCHAR" property="salesReturn"/>
+        <result column="crm" jdbcType="VARCHAR" property="crm"/>
+        <result column="sales_performance" jdbcType="VARCHAR" property="salesPerformance"/>
+        <result column="language_one" jdbcType="VARCHAR" property="languageOne"/>
+        <result column="language_two" jdbcType="VARCHAR" property="languageTwo"/>
+        <result column="language_three" jdbcType="VARCHAR" property="languageThree"/>
+        <result column="language_four" jdbcType="VARCHAR" property="languageFour"/>
+        <result column="language_five" jdbcType="VARCHAR" property="languageFive"/>
+        <result column="profession" jdbcType="VARCHAR" property="profession"/>
+        <result column="sell" jdbcType="VARCHAR" property="sell"/>
+        <result column="flow" jdbcType="VARCHAR" property="flow"/>
+        <result column="business" jdbcType="VARCHAR" property="business"/>
+        <result column="theory" jdbcType="VARCHAR" property="theory"/>
+        <result column="know_others" jdbcType="VARCHAR" property="knowOthers"/>
+        <result column="communication" jdbcType="VARCHAR" property="communication"/>
+        <result column="influence" jdbcType="VARCHAR" property="influence"/>
+        <result column="manage" jdbcType="VARCHAR" property="manage"/>
+        <result column="negotiate" jdbcType="VARCHAR" property="negotiate"/>
+        <result column="time_manage" jdbcType="VARCHAR" property="timeManage"/>
+        <result column="tele_sale" jdbcType="VARCHAR" property="teleSale"/>
+        <result column="net_sale" jdbcType="VARCHAR" property="netSale"/>
+        <result column="meeting_sale" jdbcType="VARCHAR" property="meetingSale"/>
+        <result column="exhibition_sale" jdbcType="VARCHAR" property="exhibitionSale"/>
+        <result column="develop_custom" jdbcType="VARCHAR" property="developCustom"/>
+        <result column="handle_dissent" jdbcType="VARCHAR" property="handleDissent"/>
+        <result column="deal_making" jdbcType="VARCHAR" property="dealMaking"/>
+        <result column="customer_maintenance" jdbcType="VARCHAR" property="customerMaintenance"/>
+        <result column="sale_plan" jdbcType="VARCHAR" property="salePlan"/>
+        <result column="sale_contract" jdbcType="VARCHAR" property="saleContract"/>
+        <result column="skill_others" jdbcType="VARCHAR" property="skillOthers"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, base_id, knowledge, skill, basic_competence, accomplishment, sales_return, crm, 
+    sales_performance, language_one, language_two, language_three, language_four, language_five, 
+    profession, sell, flow, business, theory, know_others, communication, influence, 
+    manage, negotiate, time_manage, tele_sale, net_sale, meeting_sale, exhibition_sale, 
+    develop_custom, handle_dissent, deal_making, customer_maintenance, sale_plan, sale_contract, 
+    skill_others
+  </sql>
+
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.PersonalReportMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.PersonalReport">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="self_evaluation" jdbcType="VARCHAR" property="selfEvaluation"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="gender" jdbcType="VARCHAR" property="gender"/>
+        <result column="birthday" jdbcType="VARCHAR" property="birthday"/>
+        <result column="marry_status" jdbcType="VARCHAR" property="marryStatus"/>
+        <result column="work_years" jdbcType="VARCHAR" property="workYears"/>
+        <result column="habitation" jdbcType="VARCHAR" property="habitation"/>
+        <result column="expect_post" jdbcType="VARCHAR" property="expectPost"/>
+        <result column="work_place" jdbcType="VARCHAR" property="workPlace"/>
+        <result column="education" jdbcType="VARCHAR" property="education"/>
+        <result column="academy" jdbcType="VARCHAR" property="academy"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="professional_name" jdbcType="VARCHAR" property="professionalName"/>
+        <result column="knowledge" jdbcType="VARCHAR" property="knowledge"/>
+        <result column="skill" jdbcType="VARCHAR" property="skill"/>
+        <result column="quality1" jdbcType="DECIMAL" property="quality1"/>
+        <result column="quality2" jdbcType="DECIMAL" property="quality2"/>
+        <result column="quality3" jdbcType="DECIMAL" property="quality3"/>
+        <result column="quality4" jdbcType="DECIMAL" property="quality4"/>
+        <result column="quality5" jdbcType="DECIMAL" property="quality5"/>
+        <result column="quality6" jdbcType="DECIMAL" property="quality6"/>
+        <result column="quality7" jdbcType="DECIMAL" property="quality7"/>
+        <result column="quality8" jdbcType="DECIMAL" property="quality8"/>
+        <result column="quality9" jdbcType="DECIMAL" property="quality9"/>
+        <result column="quality10" jdbcType="DECIMAL" property="quality10"/>
+        <result column="quality11" jdbcType="DECIMAL" property="quality11"/>
+        <result column="quality12" jdbcType="DECIMAL" property="quality12"/>
+        <result column="character1" jdbcType="INTEGER" property="character1"/>
+        <result column="character2" jdbcType="INTEGER" property="character2"/>
+        <result column="character3" jdbcType="INTEGER" property="character3"/>
+        <result column="character4" jdbcType="INTEGER" property="character4"/>
+        <result column="character5" jdbcType="INTEGER" property="character5"/>
+        <result column="character6" jdbcType="INTEGER" property="character6"/>
+        <result column="character7" jdbcType="INTEGER" property="character7"/>
+        <result column="character8" jdbcType="INTEGER" property="character8"/>
+        <result column="character9" jdbcType="INTEGER" property="character9"/>
+        <result column="character10" jdbcType="INTEGER" property="character10"/>
+        <result column="character11" jdbcType="INTEGER" property="character11"/>
+        <result column="driving_factors" jdbcType="VARCHAR" property="drivingFactors"/>
+        <result column="expect_industry" jdbcType="VARCHAR" property="expectIndustry"/>
+        <result column="expect_company" jdbcType="VARCHAR" property="expectCompany"/>
+        <result column="expect_salary" jdbcType="VARCHAR" property="expectSalary"/>
+        <result column="proposal1" jdbcType="VARCHAR" property="proposal1"/>
+        <result column="proposal2" jdbcType="VARCHAR" property="proposal2"/>
+        <result column="proposal3" jdbcType="VARCHAR" property="proposal3"/>
+        <result column="proposal4" jdbcType="VARCHAR" property="proposal4"/>
+        <result column="proposal5" jdbcType="VARCHAR" property="proposal5"/>
+        <result column="proposal6" jdbcType="VARCHAR" property="proposal6"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="recommend_count" jdbcType="INTEGER" property="recommendCount"/>
+    </resultMap>
+    <select id="selectByParams" resultMap="BaseResultMap">
+        select * from personal_report pr where 1=1
+        <if test="phone!=null and phone!=''">
+            and phone like concat('%',#{phone,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="name!=null and name!=''">
+            and name like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="status!=null">
+            and status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="demandId!=null">
+            and not exists
+            (select base_id from report_list rl where demand_id=#{demandId,jdbcType=INTEGER}
+            and rl.base_id = pr.base_id
+            )
+        </if>
+    </select>
+    <select id="selectByBaseId" resultMap="BaseResultMap">
+        select * from personal_report where
+        base_id = #{baseId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

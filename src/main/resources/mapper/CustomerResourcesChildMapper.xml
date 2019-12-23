@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.CustomerResourcesChildMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.CustomerResourcesChild">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="relationship" jdbcType="VARCHAR" property="relationship"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="department" jdbcType="VARCHAR" property="department"/>
+        <result column="duty" jdbcType="VARCHAR" property="duty"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, customer_id, name, tel, relationship, sort, department, duty, email
+  </sql>
+
+    <delete id="deleteByCustomerId" parameterType="java.lang.Integer">
+      delete from customer_resources_child
+      where customer_id = #{customerId,jdbcType=INTEGER}
+    </delete>
+    <select id="selectCountGroup" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(id)
+        from customer_resources_child
+            where customer_id in (
+                select id
+                from customer_resources
+                where base_id = #{baseId,jdbcType=INTEGER}
+             )
+        group by department, duty
+    </select>
+    <select id="selectByBaseId" resultType="io.choerodon.domain.CustomerResourcesChild">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_resources_child crc
+        where exists(
+        select crc.id
+        from customer_resources cr,customer_resources_child
+        where cr.id = crc.customer_id
+        and cr.base_id = #{baseId,jdbcType=INTEGER})
+    </select>
+
+
+    <insert id="insertSelective" parameterType="io.choerodon.domain.CustomerResourcesChild" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into customer_resources_child
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="relationship != null">
+                relationship,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="department != null">
+                department,
+            </if>
+            <if test="duty != null">
+                duty,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="relationship != null">
+                #{relationship,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="department != null">
+                #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="duty != null">
+                #{duty,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+</mapper>

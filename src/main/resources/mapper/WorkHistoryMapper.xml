@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.WorkHistoryMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.WorkHistory">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="base_id" jdbcType="INTEGER" property="baseId"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="moodyhas" jdbcType="VARCHAR" property="moodyhas"/>
+        <result column="job" jdbcType="VARCHAR" property="job"/>
+        <result column="scale" jdbcType="VARCHAR" property="scale"/>
+        <result column="main_business" jdbcType="VARCHAR" property="mainBusiness"/>
+        <result column="responsible_area" jdbcType="VARCHAR" property="responsibleArea"/>
+        <result column="Industry" jdbcType="VARCHAR" property="industry"/>
+        <result column="products_services" jdbcType="VARCHAR" property="productsServices"/>
+        <result column="sales_indicators" jdbcType="DECIMAL" property="salesIndicators"/>
+        <result column="completion" jdbcType="DECIMAL" property="completion"/>
+        <result column="key_experiences" jdbcType="VARCHAR" property="keyExperiences"/>
+        <result column="salary" jdbcType="VARCHAR" property="salary"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="dimission_cause" jdbcType="VARCHAR" property="dimissionCause"/>
+        <result column="other_business" jdbcType="VARCHAR" property="otherBusiness"/>
+        <result column="other_cause" jdbcType="VARCHAR" property="otherCause"/>
+        <result column="average_performance" jdbcType="DECIMAL" property="averagePerformance"/>
+        <result column="organizational_code" jdbcType="VARCHAR" property="organizationalCode"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, base_id, start_time, end_time, moodyhas, job, scale, main_business, responsible_area, 
+    Industry, products_services, sales_indicators, completion, key_experiences, salary, 
+    sort, dimission_cause,other_business,other_cause,average_performance,organizational_code
+  </sql>
+
+
+    <select id="selectRecentlyByNull" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from work_history
+        where end_time IS NULL and base_id = #{baseId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectRecently" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from work_history
+        where base_id = #{baseId,jdbcType=INTEGER}
+        order by start_time desc
+    </select>
+
+
+</mapper>

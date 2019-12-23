@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.DataDictionaryMapper">
+    <resultMap id="BaseResultMap" type="io.choerodon.domain.DataDictionary">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="first_level" jdbcType="VARCHAR" property="firstLevel"/>
+        <result column="section_level" jdbcType="VARCHAR" property="sectionLevel"/>
+        <result column="three_level" jdbcType="VARCHAR" property="threeLevel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, first_level, section_level,three_level
+  </sql>
+    <select id="selectByFirstLevel" resultType="java.lang.String">
+        select distinct section_level
+        from data_dictionary
+        where first_level = #{firstLevel,jdbcType=VARCHAR}
+    </select>
+    <select id="selectFirstLevel" resultType="java.lang.String">
+        select  distinct first_level
+        from data_dictionary
+    </select>
+
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.choerodon.infra.mapper.SchoolMapper">
+
+    <sql id="Province_Column_List">
+        uid,name
+    </sql>
+
+    <sql id="City_Column_List">
+        uid,name,pid
+    </sql>
+
+    <sql id="School_Column_List">
+        uid,name,pid
+    </sql>
+
+    <select id="selectProvince" resultType="java.util.Map">
+        select
+        <include refid="Province_Column_List"/>
+        from province
+    </select>
+
+    <select id="selectCityByPid" resultType="java.util.Map" parameterType="java.lang.String">
+        select
+        <include refid="City_Column_List"/>
+        from city
+        where pid = #{pid,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectSchoolByPid" resultType="java.util.Map" parameterType="java.lang.String">
+        select
+        <include refid="School_Column_List"/>
+        from college
+        where pid = #{pid,jdbcType=VARCHAR}
+    </select>
+    <select id="selectSchoolByKeyword" resultType="java.lang.String" parameterType="java.lang.String">
+        select name from college
+        where name like concat('%',#{keyword},'%')
+    </select>
+
+
+</mapper>
